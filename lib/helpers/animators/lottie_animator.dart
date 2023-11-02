@@ -1,18 +1,35 @@
 import 'package:lottie/lottie.dart';
+import 'package:weather_app/helpers/animators/weather_type.dart';
+import 'weather_picker.dart';
 
 /// Class to search animations in assert file
 class LottieAnimator {
 
-  LottieAnimator();
+  final defaultAssetLocation = 'assets/animations';
+  final defaultAssetAnimation = 'missing';
 
-  LottieBuilder getAnimation(final String animationName) {
+  // fields
+  final WeatherAnimationPicker _weatherPicker;
+
+  LottieAnimator()
+  : _weatherPicker = WeatherAnimationPicker();
+
+  /// Return the animation from Lottie, otherwise it returns the default missing weather animation.
+  LottieBuilder getAnimation(final String? condition) {
     try {
-      return Lottie.asset('assets/animations/weather_$animationName.json');
+      final animationName = _weatherPicker.getTypeByCondition(condition);
+
+      return Lottie.asset(_buildPathToAnimation(animationName));
     } catch (e) {
       // do stuff later
     }
 
     // Return image by default.
-    return Lottie.asset('assets/animations/weather_not_found.json');
+    return Lottie.asset(_buildPathToAnimation(WeatherType.missing));
+  }
+
+  String _buildPathToAnimation(final WeatherType animationType) {
+    var animationName = animationType.toString();
+    return '$defaultAssetLocation/weather_$animationName.json';
   }
 }

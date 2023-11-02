@@ -31,7 +31,7 @@ class WeatherInfo {
   // Create a WeatherInfo Object based the json from API
   factory WeatherInfo.fromJson(Map<String, dynamic> json) {
     // get the main condition but cast to lowercase
-    final mainConditionTxt = json['weather'][0]['main'].toLowerCase();
+    final mainConditionTxt = json['weather'][0]['main']/*.toLowerCase()*/;
     final mainDescriptionTxt = json['weather'][0]['description'];
 
     return WeatherInfo(

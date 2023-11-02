@@ -5,13 +5,13 @@ enum WeatherType {
   rain(['Rain']),
   thunder(['Thunderstorm']),
   snow(['Snow']),
-  notFound(['not_found']);
+  missing(['missing']);
 
   const WeatherType(this.list);
   final List<String> list;
 
   @override
   String toString(){
-    return super.toString().toLowerCase();
+    return name.toLowerCase();
   }
 }
