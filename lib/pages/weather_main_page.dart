@@ -21,7 +21,7 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
   _WeatherMainPageState()
       : _animator = LottieAnimator(),
         _cityService = CityService(),
-  // TODO save the code in a external way
+        // TODO save the code in a external way
         _weatherService = WeatherService('fb61e126fbd2a933a9d0a8240427adb1');
 
   _fetchWeather() async {
@@ -50,18 +50,32 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // City name 
-            Text(_weather?.cityName ?? "Loading city"),
-            
+            // City name
+            Text(
+              _weather?.cityName ?? "Loading city",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 40.0
+              ),
+            ),
+
             //Animation
-            _animator.getAnimation(_weather?.weatherInfo.mainCondition ?? 'not_found'),
-            
-            // Temperature
-            Text('${_weather?.temp.round()} C'),
+            _animator.getAnimation(
+                _weather?.weatherInfo.mainCondition ?? 'not_found'),
+
+            // Temperature : unicode for celsius.
+            Text(
+              '${_weather?.temp.round()} \u2103',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: 31.5
+              ),
+            ),
           ],
         ),
       ),

@@ -6,6 +6,13 @@ class LottieAnimator {
   LottieAnimator();
 
   LottieBuilder getAnimation(final String animationName) {
-    return Lottie.asset('assets/animations/weather_$animationName.json');
+    try {
+      return Lottie.asset('assets/animations/weather_$animationName.json');
+    } catch (e) {
+      // do stuff later
+    }
+
+    // Return image by default.
+    return Lottie.asset('assets/animations/weather_not_found.json');
   }
 }

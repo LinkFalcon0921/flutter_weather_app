@@ -17,10 +17,12 @@ class CityService {
 
       if(value.isError || !value.getResult()){
         // todo create modal to show data
+        return null;
       }
 
       Position actualPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high
+        desiredAccuracy: LocationAccuracy.high,
+        // timeLimit: const Duration(seconds: 3),
       );
 
       final placeMarkLocation = await placemarkFromCoordinates(actualPosition.latitude,
