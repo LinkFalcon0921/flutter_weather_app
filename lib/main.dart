@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/weather_main_page.dart';
 import 'package:weather_app/themes/theme.dart';
+import 'package:weather_app/themes/theme_text.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const WeatherMainPage(),
-      theme: lightMode,
-      darkTheme: darkMode,
+      theme: lightMode.copyWith(textTheme: textLightStyle),
+      darkTheme: darkMode.copyWith(textTheme: textDarkStyle),
     );
   }
 }

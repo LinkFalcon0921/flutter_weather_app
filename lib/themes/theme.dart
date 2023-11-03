@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/themes/theme_text.dart';
 
 // Light style
 ThemeData lightMode = ThemeData(
@@ -9,7 +8,6 @@ ThemeData lightMode = ThemeData(
       primary: Colors.grey.shade800,
       secondary: Colors.grey.shade700,
     ),
-    textTheme: textLightStyle,
 );
 
 // Dark style
@@ -19,5 +17,4 @@ ThemeData darkMode = ThemeData(
       background: Colors.grey.shade700,
       primary: Colors.grey.shade200,
       secondary: Colors.grey.shade300),
-  textTheme: textDarkStyle,
 );

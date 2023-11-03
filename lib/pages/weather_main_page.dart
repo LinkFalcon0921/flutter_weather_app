@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/components/refresher_button.dart';
 import 'package:weather_app/helpers/animators/lottie_animator.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/city_service.dart';
@@ -63,35 +64,38 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
 
             // Animation
             Container(
-                margin: const EdgeInsets.only(top: 23.0),
-                height: 300.0,
-                child: _animator.getAnimation(_weather?.weatherInfo.mainCondition)
-            ),
+                margin: const EdgeInsets.symmetric(vertical: 3.0),
+                height: 250.0,
+                child: _animator
+                    .getAnimation(_weather?.weatherInfo.mainCondition)),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Temperature : unicode for celsius.
-                      Text(
-                        '${_weather?.temp.round() ?? '??'} \u2103',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+            // Details list
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Temperature : unicode for celsius.
+                Text(
+                  '${_weather?.temp.round() ?? '??'} \u2103',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
 
-                      // Condition Description
-                      Text(
-                        _weather?.weatherInfo.mainDescription ?? '',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  )),
+                // Condition Description
+                Text(
+                  _weather?.weatherInfo.mainDescription ?? '',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
             ),
           ],
         ),
       ),
+      floatingActionButton: RefresherButton(_handleRefreshButton),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  // Handle when you want to refresh weather.
+  void _handleRefreshButton() async {
+    await _fetchWeather();
   }
 }
