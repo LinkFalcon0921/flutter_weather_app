@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/components/refresher_button.dart';
 import 'package:weather_app/helpers/animators/lottie_animator.dart';
+import 'package:weather_app/models/geolocation_model.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/city_service.dart';
 import 'package:weather_app/services/weather_service.dart';
@@ -25,11 +26,30 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
         // TODO save the code in a external way
         _weatherService = WeatherService('fb61e126fbd2a933a9d0a8240427adb1');
 
-  _fetchWeather() async {
-    String currentCity = await _cityService.getCurrentCity();
+  @deprecated
+  _fetchWeatherByCityName() async {
+    String currentCity = await _cityService.getCurrentCityByName();
 
     try {
       final weatherFound = await _weatherService.getWeather(currentCity);
+
+      // Update the state
+      setState(() {
+        _weather = weatherFound;
+      });
+    } catch (ex) {
+      // Send an modal
+      print(ex);
+    }
+  }
+
+  _fetchWeatherByGeolocation() async {
+    Geolocation? userLocation =
+        await _cityService.getCurrentCityByGeolocation();
+
+    try {
+      final weatherFound =
+          await _weatherService.getWeatherByGeolocation(userLocation);
 
       // Update the state
       setState(() {
@@ -45,7 +65,8 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
   void initState() {
     super.initState();
 
-    _fetchWeather();
+    // _fetchWeatherByCityName();
+    _fetchWeatherByGeolocation();
   }
 
   @override
@@ -59,6 +80,7 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
             // City name
             Text(
               _weather?.cityName ?? "Loading city",
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
 
@@ -89,13 +111,19 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
           ],
         ),
       ),
-      floatingActionButton: RefresherButton(_handleRefreshButton),
+      floatingActionButton: RefresherButton(_handleRefreshButtonByGeolocation),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   // Handle when you want to refresh weather.
-  void _handleRefreshButton() async {
-    await _fetchWeather();
+  @deprecated
+  void _handleRefreshButtonByCityName() async {
+    await _fetchWeatherByCityName();
+  }
+
+  // Handle when you want to refresh weather.
+  void _handleRefreshButtonByGeolocation() async {
+    await _fetchWeatherByGeolocation();
   }
 }
