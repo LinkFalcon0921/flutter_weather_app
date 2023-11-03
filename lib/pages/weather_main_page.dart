@@ -58,23 +58,36 @@ class _WeatherMainPageState extends State<WeatherMainPage> {
             // City name
             Text(
               _weather?.cityName ?? "Loading city",
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 40.0
-              ),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
 
-            //Animation
-            _animator.getAnimation(
-                _weather?.weatherInfo.mainCondition ?? 'not_found'),
+            // Animation
+            Container(
+                margin: const EdgeInsets.only(top: 23.0),
+                height: 300.0,
+                child: _animator.getAnimation(_weather?.weatherInfo.mainCondition)
+            ),
 
-            // Temperature : unicode for celsius.
-            Text(
-              '${_weather?.temp.round()} \u2103',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 31.5
-              ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Container(
+                  margin: const EdgeInsets.only(top: 15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Temperature : unicode for celsius.
+                      Text(
+                        '${_weather?.temp.round() ?? '??'} \u2103',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+
+                      // Condition Description
+                      Text(
+                        _weather?.weatherInfo.mainDescription ?? '',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  )),
             ),
           ],
         ),
