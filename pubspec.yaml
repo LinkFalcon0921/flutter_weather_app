@@ -46,12 +46,12 @@ dev_dependencies:
     sdk: flutter
 
 flutter_launcher_icons:
-  image_path_android: "assets/icons/android/icon_android.png"
-  image_path_ios: "assets/icons/ios/AppIcon-29@3x.png"
+  image_path_android: "assets/icons/weather_app.png"
+  image_path_ios: "assets/icons/weather_app.png"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
-  adaptive_icon_background: "assets/icons/android/icon_android.png" # only available for Android 8.0 devices and above
-  adaptive_icon_foreground: "assets/icons/ios/AppIcon-29@3x.png" # only available for Android 8.0 devices and above
+  adaptive_icon_background: "assets/icons/weather_app.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "assets/icons/weather_app.png" # only available for Android 8.0 devices and above
   min_sdk_android: 26
   remove_alpha_ios: true
   background_color_ios: "#ffffff"
